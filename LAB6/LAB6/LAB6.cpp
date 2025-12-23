@@ -1,42 +1,64 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+
 using namespace std;
 
 void displayStudentInfo(string name, string id, double score, char grade)
 {
-    cout << "Student Name: " << name << "\n";
-    cout << "Student ID  : " << id << "\n";
-    cout << "Score       : " << fixed << setprecision(2) << score << "\n";
-    cout << "Grade       : " << grade << "\n";
+	cout << "Student Name: " << name << "\n";
+	cout << "Student ID  : " << id << "\n";
+	cout << "Score       : " << fixed << setprecision(2) << score << "\n";
+	cout << "Grade       : " << grade << "\n";
 }
 
 void calculateGrade(double score, char& grade)
 {
-    if (score >= 90) grade = 'A';
-    else if (score >= 80) grade = 'B';
-    else if (score >= 70) grade = 'C';
-    else if (score >= 60) grade = 'D';
-    else grade = 'F';
+	if (score >= 90) grade = 'A';
+	else if (score >= 80) grade = 'B';
+	else if (score >= 70) grade = 'C';
+	else if (score >= 60) grade = 'D';
+	else grade = 'F';
 }
 
 int main()
 {
-    string name, id;
-    double score;
-    char grade;
+	int num;
+	cout << "Enter number of students: ";
+	cin >> num;
+	cin.ignore();
 
-    cout << "Enter name: ";
-    getline(cin, name);
+	string* name = new string[num];
+	string* id = new string[num];
+	double* score = new double[num];
+	char* grade = new char[num];
 
-    cout << "Enter id: ";
-    cin >> id;
+	for (int i = 0; i < num; i++)
+	{
+		cout << "Enter student " << i + 1 << " name: ";
+		getline(cin, name[i]);
 
-    cout << "Enter score: ";
-    cin >> score;
+		cout << "Enter student " << i + 1 << " id: ";
+		cin >> id[i];
 
-    calculateGrade(score, grade);
-    displayStudentInfo(name, id, score, grade);
+		cout << "Enter student " << i + 1 << " score: ";
+		cin >> score[i];
+		cin.ignore();
 
-    return 0;
+		calculateGrade(score[i], grade[i]);
+		cout << endl;
+	}
+
+	for (int i = 0; i < num; i++)
+	{
+		displayStudentInfo(name[i], id[i], score[i], grade[i]);
+		cout << endl;
+	}
+
+	delete[] name;
+	delete[] id;
+	delete[] score;
+	delete[] grade;
+
+	return 0;
 }
